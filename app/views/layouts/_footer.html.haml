@@ -1,0 +1,105 @@
+.clearfix
+/ Footer End
+
+#footer.hidden-print
+
+  .row-fluid
+    .span8
+      .row-fluid.row-menu
+        .span3
+          %ul.unstyled
+            %li
+              %h4 Get Help
+              %ul.unstyled
+                %li
+                  %a{:href => "documentation.html?lang=en&layout_type=fluid&menu_position=menu-left&style=style-light"} Documentation
+                %li
+                  %a{:href => ""} Aenean augue risus
+                %li
+                  %a{:href => ""} Maecenas erat dui
+        .span3
+          %ul.unstyled
+            %li
+              %h4 My account
+              %ul.unstyled
+                %li
+                  %a{:href => "my_account.html?lang=en&layout_type=fluid&menu_position=menu-left&style=style-light"} Edit account
+                %li
+                  %a{:href => "my_account.html?lang=en&layout_type=fluid&menu_position=menu-left&style=style-light"} Change password
+                %li
+                  %a{:href => "login.html?lang=en&layout_type=fluid&menu_position=menu-left&style=style-light"} Logout
+        .span3
+          %ul.unstyled
+            %li
+              %h4 Other Settings
+              %ul.unstyled
+                %li
+                  %a{:href => ""} Etiam viverra pharetra
+                %li
+                  %a{:href => ""} Lorem ipsum dolor
+                %li
+                  %a{:href => ""} Consecteur adipiscing
+        .span3
+          / Twitter Section
+          %h5.glyphicons.single.twitter
+            %i
+            Latest from Twitter
+          %section.twitter-feed
+            .row-fluid
+              .span12
+                .tweet
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nunc lorem, rutrum non porta.
+                  %span.label.label-inverse 01/11/2012
+              .clearfix
+          / Twitter Section END
+    .span4
+      .right.innerAll
+        %p
+          If you have any problems using
+          %strong AdminKIT
+          v1.5 or you have any suggestions or requests, please contact us. We appreciate all your feedback.
+        %a.btn.btn-primary.btn-icon.glyphicons.envelope{:href => "http://www.mosaicpro.biz"}
+          %i
+          Contact Support
+  .separator.bottom
+  / Copyright Line
+  .copy
+    \© 2012 - 2013 -
+    %a{:href => "http://www.mosaicpro.biz"} MosaicPro
+    \- All Rights Reserved.
+    %a{:href => "http://themeforest.net/item/adminkit-premium-admin-template/4437902?ref=mosaicpro", :target => "_blank"} Purchase this template on ThemeForest
+    \- Current version: v1.5 /
+    %a{:href => "http://demo.mosaicpro.biz/adminkit/CHANGELOG", :target => "_blank"} changelog
+  / End Copyright Line
+/ // Footer END
+/ // Main Container Fluid END
+#themer.collapse
+  .wrapper
+    %span.close2 × close
+    %h4
+      Themer
+      %span color options
+    %ul
+      %li
+        Theme:
+        %select#themer-theme.pull-right
+        .clearfix
+      %li
+        Primary Color:
+        %input#themer-primary-cp{"data-default" => "#ffffff", "data-position" => "left", "data-slider" => "hue", "data-textfield" => "false", "data-type" => "minicolors", :type => "text"}/
+        .clearfix
+      %li
+        %span#themer-custom-reset.link reset theme
+        %span.pull-right
+          %label
+            advanced
+            %input#themer-advanced-toggle{:type => "checkbox", :value => "1"}/
+    #themer-getcode.hide
+      %hr.separator/
+      %button#themer-getcode-less.btn.btn-primary.btn-small.pull-right.btn-icon.glyphicons.download
+        %i>
+        Get LESS
+      %button#themer-getcode-css.btn.btn-inverse.btn-small.pull-right.btn-icon.glyphicons.download
+        %i>
+        Get CSS
+      .clearfix

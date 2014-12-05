@@ -1,0 +1,47 @@
+#content
+  / Breadcrumb
+  %ul.breadcrumb
+    %li
+      %a.glyphicons.home{:href => "index.html?lang=en&layout_type=fixed&menu_position=menu-left&style=style-dark"}
+        %i
+        User's 
+    %li.divider
+    %li List
+  .separator.bottom
+  / // Breadcrumb END
+  %h3 List of the Added Users
+  .innerLR
+    .widget
+      .widget-head
+        %h4 Details of the Users
+      .widget-body
+        %table.dynamicTable.table.table-striped.table-bordered.table-condensed
+          / Table heading
+          %thead
+            %tr
+              %th ID
+              %th Name
+              %th Gender
+              %th Status
+              %th Contact Number
+              %th Friends
+
+          / // Table heading END
+          / Table body
+          %tbody
+          - @clients.each do |client|
+            %tr
+              %td= client.id
+              %td= client.name
+              %td= client.gender
+              - if client.status == true
+                %td= "Active"
+              - else
+                %td= "Inactive"
+              %td= client.contact_number
+              - count = client.friends.count
+              - if count != 1
+                %td= client.friends.count
+              - elsif count == 1
+                %td= client.friends.first.friend_name
+              

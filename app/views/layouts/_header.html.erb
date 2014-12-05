@@ -1,0 +1,78 @@
+<head>
+	<title>Boo App</title>
+	
+	<!-- Meta -->
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+	
+</head>
+<body class="">
+	
+		<!-- Main Container Fluid -->
+	<div class="container-fluid fluid menu-left">
+		
+		<!-- Top navbar -->
+		<div class="navbar main hidden-print">
+		
+			<a href="index.html?lang=en&amp;layout_type=fluid&amp;menu_position=menu-left&amp;style=style-light" class="appbrand pull-left"><span>AdminKIT of Sunia</span></span></a>
+		
+			<ul class="topnav pull-right">
+				<!-- Profile / Logout menu -->
+				<% if user_signed_in? %>
+                   
+               		<li class="account">
+						<%= link_to 'Edit Admin profile', edit_user_registration_path, :class => 'navbar-link glyphicons logout lock' %> |
+					</li>
+					
+					<li class="account">
+					    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link glyphicons logout lock'  %>
+					</li>
+				<% else%>
+               		<li class="account">
+						<%= link_to 'Login', new_user_session_path, :class => 'navbar-link glyphicons logout lock' %> |
+					</li>
+				<%end%>
+				
+				<!-- // Profile / Logout menu END -->
+			</ul>
+						
+		</div>
+		
+		<!-- Sidebar menu & content wrapper -->
+		<div id="wrapper">
+		
+		<!-- Sidebar Menu -->
+		<div id="menu" class="hidden-phone hidden-print">
+		
+			<!-- Scrollable menu wrapper with Maximum height -->
+			<div class="slim-scroll" data-scroll-height="800px">
+			
+			<!-- Sidebar Profile -->
+			<span class="profile">
+				<a class="img" href="#"><img src="http://dummyimage.com/51x51/232323/ffffff&amp;text=photo" alt="Mr. Awesome" /></a>
+				<span>
+					<strong>Welcome Sunia</strong>
+				</span>
+			</span>
+			<!-- // Sidebar Profile END -->
+			
+			<!-- Regular Size Menu -->
+			<ul>
+				<li class="glyphicons display"><a href="/dashboard"><i></i><span>Dashboard</span></a></li>
+				<% if user_signed_in? %>
+					<li class="glyphicons tags"><a href="/clients"><i></i><span>User's List</span></a></li>
+				<%end%>
+				<li class="glyphicons cogwheels"><a href="/messages/new"><i></i><span>Send SMS</span></a></li>
+				<li class="glyphicons tags"><a href="/clients/new"><i></i><span>Update the User Information</span></a></li>
+				<li class="glyphicons tags"><a href="/friends/new"><i></i><span>Add Friends</span></a></li>
+			</ul>
+			<div class="clearfix"></div>
+			<div class="separator bottom"></div>
+			</div>
+		</div>
+		<!-- // Sidebar Menu END -->
+		<!-- Content -->
+</body>
