@@ -17,8 +17,8 @@ class FriendsController < ApplicationController
          # Check Friends Count of User
          if @client.friends.count > 0
            render json: {:status => false, :message => "You have already add one friend. Purchase the number to add more friends"} 
-         else
-           # Check Status of the User
+         else  
+           # Check Status of the User Details
            if  @client.status == true 
              @friend = @client.friends.create(friend_params)
                render json: {:status => true, "message" => "Friend has successfully added for the user", :friend_details => JSON.parse(@friend.to_json)}
