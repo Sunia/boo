@@ -28,6 +28,17 @@ class MessagesController < ApplicationController
       end
       
     end
+    
+    def dashboard
+      byebug
+      if current_user
+        redirect_to clients_path
+      else
+        redirect_to new_user_session_path
+        flash[:notice] = "Login first to view the dashboard"
+      end
+      
+    end
   end
 
 # with parameters 
