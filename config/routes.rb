@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  root 'visitors#index' 
-  
-  
+  root 'visitors#select_route' 
   
   resources :messages
   resources :visitors
@@ -16,6 +14,7 @@ Rails.application.routes.draw do
   resources :friends
   post 'messages/notify' => 'messages#notify'
   get '/dashboard' => 'messages#dashboard'
+  get '/visitors' => 'visitors#index'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

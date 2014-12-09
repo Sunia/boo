@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
   
   def index
     if current_user
-      @clients = Client.all
+      @clients = Client.all.order(:id)
     else
       flash[:notice] = "First Login to view the User Details"
       redirect_to new_user_session_path
