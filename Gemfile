@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'haml-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
+
+
 # Use postgresql as the database for Active Record
 #gem 'mysql2'
 gem 'pg'
@@ -31,7 +33,7 @@ gem 'twilio-ruby'
 gem 'rest_client'
 gem 'byebug' 
 
-gem 'suspenders', '~> 1.20.0'
+#gem 'suspenders', '~> 1.20.0'
 
 gem 'devise'
 gem 'passenger'
@@ -48,3 +50,4 @@ gem 'rails_12factor', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :t
+ruby "2.1.4"
