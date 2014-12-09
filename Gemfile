@@ -4,7 +4,8 @@ gem 'haml-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
-gem 'mysql2'
+#gem 'mysql2'
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -33,7 +34,9 @@ gem 'byebug'
 gem 'suspenders', '~> 1.20.0'
 
 gem 'devise'
+gem 'passenger'
 
+gem 'rails_12factor', group: :production
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -44,5 +47,4 @@ gem 'devise'
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
-
+# gem 'debugger', group: [:development, :t
