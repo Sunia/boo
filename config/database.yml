@@ -5,6 +5,8 @@ development:
   database: boo_development
   pool: 5
   host: localhost
+  username: postgres
+  password: root
   
 test:
   adapter: postgresql
