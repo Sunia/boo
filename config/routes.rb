@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  root 'visitors#index'
+  root 'clients#index'
   
   resources :messages
   resources :visitors
