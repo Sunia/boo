@@ -39,7 +39,9 @@
 					
 					<label class="strong">Confirm Password</label>
 					<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirmation Password", class: "input-block-level" %>
-				    <%= f.submit "Sign up", class: "btn btn-icon-stacked btn-block btn-success glyphicons user_add" %>
+				    
+				    <%= f.submit "Sign up", class: "btn btn-icon-stacked btn-block btn-success glyphicons user_add" %>  
+				    
 					<%= render "devise/shared/links" %>
 				</div>
 			</div>
