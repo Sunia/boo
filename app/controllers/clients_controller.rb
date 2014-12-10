@@ -2,24 +2,24 @@ class ClientsController < ApplicationController
   
   skip_before_action :verify_authenticity_token, :only => [:update_info]
   
-  # for listing all the users.  
+  # for listing all the clients.  
   def index
     if current_user
       @clients = Client.all.order(:id)
     else
-      flash[:notice] = "First Login to view the User Details"
-      redirect_to new_user_session_path
+      flash[:notice] = "First Login to view the client Details"
+      redirect_to new_client_session_path
     end
   end
   
   # To update the clients information.
   
   def update_info
-    if params["user"]["id"].blank?
+    if params["client"]["id"].blank?
       render json: {:status => "false", :id => "ID should not be blank"}
     else
      begin
-       @client  = Client.find(params["user"]["id"])
+       @client  = Client.find(params["client"]["id"])
        @client.update_attributes(client_params)
        @client.update_attributes(:status => true)
        render json: {:status => "true", :client_details => JSON.parse(@client.to_json)}
@@ -41,7 +41,7 @@ class ClientsController < ApplicationController
   
   private
   def client_params
-    params.require(:user).permit(:name, :contact_number, :nick_name, :gender)
+    params.require(:client).permit(:name, :contact_number, :nick_name, :gender)
   end
   
 end

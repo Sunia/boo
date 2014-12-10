@@ -5,7 +5,7 @@
   .clearfix
 
 .innerLR
-  = form_for :user, :url => {:controller => "friends", :action => "create", :method => "post" } do |f|
+  = form_for :client, :url => {:controller => "friends", :action => "new_friend", :method => "post" } do |f|
 
     .widget.widget-tabs
       .widget-body
@@ -32,6 +32,6 @@
             %br
       .heading-buttons
         .buttons.pull-right{:style => "margin: 0;"}
-          = f.submit "Add friend Details", :class => "btn btn-primary btn-icon glyphicons ok_2"
+          = f.submit "Send Friend Requests", :class => "btn btn-primary btn-icon glyphicons ok_2"
 %br
 %br         
