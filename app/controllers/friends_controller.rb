@@ -6,13 +6,16 @@ class FriendsController < ApplicationController
   end
   
   def new_friend
-    if params[:client][:id].blank?
+    
+    friend_contact = params[:client][:contact_number]
+    
+    if params[:client][:client_id].blank?
       render json: {:status => false, :message => "Please fill the client ID"}
-    elsif params[:client][:contact_number].blank?
+    elsif friend_contact.blank?
       render json: {:status => false, :message => "Please fill the Contact Number"}
     else
       begin
-         @client = Client.find(params[:client][:id])
+         @client = Client.find(params[:client][:client_id])
          
           # Check Status of the client Details
           if @client.status == true 
@@ -21,11 +24,11 @@ class FriendsController < ApplicationController
              if @client.friend_credit == 0
                render json: {:status => false, :message => "You have used your all credits. Purchase friend credits to add new friends."} 
              else  
-               create_friend(@client)
+                send_request(@client,friend_contact)
             end
         else 
             render json: {:status => false, :message => "The client of mentioned ID is not active."}
-          end 
+         end 
               
       rescue Exception => e
         if @client.nil?
@@ -39,12 +42,12 @@ class FriendsController < ApplicationController
   end
   
   
-  def send_request(client)
+  def send_request(client,friend_contact)
     byebug
-    @receiver = Client.find_by_contact_number(@friend.contact_number)
+    @receiver = Client.find_by_contact_number(friend_contact)
     
     # Not in database
-    if !@receiver.blank?
+    if @receiver.blank?
        #send push notification
        render json: {:status => false, :message => "Friend is not in the database"}
     else
