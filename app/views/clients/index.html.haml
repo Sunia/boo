@@ -25,6 +25,7 @@
               %th Status
               %th Contact Number
               %th Friends
+              %th Actions
 
           / // Table heading END
           / Table body
@@ -39,9 +40,8 @@
               - else
                 %td= "Inactive"
               %td= client.contact_number
-              - count = client.friends.count
-              - if count != 1
-                %td= client.friends.count
-              - elsif count == 1
-                %td= client.friends.first.friend_name
+              %td= client.friends.count
+              
+              %td= link_to 'Show', client_path(client)
+              %td= link_to 'Delete', client_path(client), method: :delete, data: { confirm: 'Are you sure?' } 
               

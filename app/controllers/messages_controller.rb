@@ -12,50 +12,22 @@ class MessagesController < ApplicationController
 
     if params["user"]["contact_number"].blank?
       render json: {:status => "false", :body => "Contact number is blank"}
-    elsif params["user"]["contact_number"] != "+918872853171"
-      render json: {:status => "false", :body => 'The number on which you want to send message is not verified.'}
     else
-      
       begin 
-         message = client.messages.create from: '+12053169104', to: params["user"]["contact_number"], body: "Hello Sunia Kalra here !! Please verify the code #{random_code} "
+         message = client.messages.create from: '+18023326627', to: params["user"]["contact_number"], body: "Hello Sunia Kalra here !! Please verify the code #{random_code} "
          if message.status == "queued"
-           @client = Client.create
+           @client = Client.create(:contact_number => params["user"]["contact_number"])
            render json: {:status => true, :message => "Message has been sent sucessfully", :code_sent => random_code, :client_id => @client.id } 
          end
          
        rescue Exception => e
          render json: {:status => "false", :body => "Something went wrong"}
       end
-      
     end
     
-    def dashboard
-      byebug
-      if current_user
-        redirect_to clients_path
-      else
-        redirect_to new_user_session_path
-        flash[:notice] = "Login first to view the dashboard"
-      end
-      
-    end
   end
 
 # with parameters 
 #curl --basic --header "Content-Type:application/json" --header "Accept:application/json" http://localhost:3000/messages/notify -X POST -d ' {"user": {"contact_number": "+918872853171"}}'
 #RestClient.post 'http://localhost:3000/messages/notify', {:user => {:contact_number => "+918872853171"}}
-
-
-#=============================================================================
-# Without parameters
-
-  # def notify
-    # client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-    # message = client.messages.create from: '+12053169104', to: '+918872853171', body: 'Yippie.'
-    # render json: {:status => true, :message => "Message has sent sucessfully" } 
-# end
-
-#curl --data "foo=bar" http://localhost:3000/messages/notify
-#RestClient.post 'http://localhost:3000/messages/notify', {:foo => "bar"}
-
 end

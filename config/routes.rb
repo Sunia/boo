@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   
   resources :friends
   post 'messages/notify' => 'messages#notify'
-  get '/dashboard' => 'messages#dashboard'
   get '/visitors' => 'visitors#index'
+  post 'friends/new_friend' => 'friends#new_friend'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

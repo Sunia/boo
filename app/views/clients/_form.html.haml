@@ -8,22 +8,12 @@
   .separator.bottom
   
   .innerLR
-    = form_for :user, :url => {:controller => "clients", :action => "update_info", :method => "post" } do |f|
+    = form_for @user do |f|
 
       .widget.widget-tabs
         .widget-body
           .tab-content
             #productDescriptionTab.tab-pane.active
-              .row-fluid
-                .span3
-                  %strong Enter ID
-                  %p.muted ID of the User
-                .span9
-                  %label{:for => "inputTitle"} ID
-                  = f.text_field :id, class: "span6"  ,placeholder: "Enter ID ..."
-                  .separator
-              %hr.separator.bottom/
-
               .row-fluid
                 .span3
                   %strong Enter Username

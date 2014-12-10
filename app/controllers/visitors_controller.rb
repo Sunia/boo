@@ -1,5 +1,6 @@
 class VisitorsController < ApplicationController
   
+  
   def index
   end
 
@@ -10,5 +11,4 @@ class VisitorsController < ApplicationController
       redirect_to visitors_path
     end
   end
-
 end
