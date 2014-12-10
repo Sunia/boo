@@ -1,27 +1,6 @@
 class ClientsController < ApplicationController
   
   skip_before_action :verify_authenticity_token, :only => [:update_info]
-  # For creating new User
-  def new
-    @user = Client.new
-  end
-  
-  def create
-    begin
-      contact = params[:user][:contact_number]
-      if contact.to_i.to_s != contact
-         flash[:notice] = "Enter integer value of contact number"
-         render 'new'
-       else
-        @client = Client.create(client_params)
-        redirect_to clients_path
-       end
-    rescue Exception=>e
-      flash[:notice] = "Something went wrong"
-      render 'new'
-    end
-  end
-  
   
   # for listing all the users.  
   def index
