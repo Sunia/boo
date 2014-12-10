@@ -4,6 +4,7 @@ class CreateRequests < ActiveRecord::Migration
        t.integer :sender_id
        t.integer :receiver_id
        t.boolean :rqst_status, :default => false
+        t.integer :client_id
        t.timestamps
     end
   end

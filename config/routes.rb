@@ -9,9 +9,19 @@ Rails.application.routes.draw do
     collection do
       post 'update_info'
     end
+    
   end
   
   resources :friends
+  resources :requests do
+    member do
+      post 'accepted', :as => "accepted"
+      post 'rejected', :as => "rejected"
+    end
+  end
+  
+  
+  post '/user_requests' => "requests#user_requests"
   post 'messages/notify' => 'messages#notify'
   get '/visitors' => 'visitors#index'
   post 'friends/new_friend' => 'friends#new_friend'

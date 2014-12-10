@@ -24,7 +24,11 @@ class FriendsController < ApplicationController
              if @client.friend_credit == 0
                render json: {:status => false, :message => "You have used your all credits. Purchase friend credits to add new friends."} 
              else  
-                send_request(@client,friend_contact)
+                sms_status = send_request(@client,friend_contact)
+                byebug
+                render json: {:status => true, :message => "Message has been sent to your friend"} if sms_status == true
+                  render json: {:status => true, :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
+                  render json: {:status => false, :message => "Some error has occurred."} if sms_status == "error"
             end
         else 
             render json: {:status => false, :message => "The client of mentioned ID is not active."}
@@ -43,22 +47,22 @@ class FriendsController < ApplicationController
   
   
   def send_request(client,friend_contact)
-    byebug
     @receiver = Client.find_by_contact_number(friend_contact)
     
     # Not in database
     if @receiver.blank?
        #send push notification
-       render json: {:status => false, :message => "Friend is not in the database"}
+       return send_sms_friend(friend_contact)
+       
     else
       # User is in the database, send request to that user
-       @request = Request.create(:sender_id => client.id, :receiver_id => @receiver.id)
+       @request = Request.create(:sender_id => client.id, :client_id => @receiver.id)
       if !@request.blank?
-        render json: {:status => true, :message => "Request has succesfully sent to the user"}
+          return "request_send"
       else
-        render json: {:status => false, :message => "Some error has occurred."} 
+        return "error"
+         
       end 
-        
     end
     
   end
@@ -69,6 +73,12 @@ class FriendsController < ApplicationController
     #render json: {:status => true, "message" => "Friend has succesfully added", :friend_details => JSON.parse(@friend.to_json)}
   end
   
+  def send_sms_friend(friend_contact)
+    client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
+    message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Sunia kalra here..Your friend has invited you to download the boo app"
+    
+    return true
+  end
   
   
   private

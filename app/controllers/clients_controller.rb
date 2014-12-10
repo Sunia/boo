@@ -8,7 +8,7 @@ class ClientsController < ApplicationController
       @clients = Client.all.order(:id)
     else
       flash[:notice] = "First Login to view the client Details"
-      redirect_to new_client_session_path
+      redirect_to new_user_session_path
     end
   end
   
@@ -39,6 +39,11 @@ class ClientsController < ApplicationController
       redirect_to clients_path
   end
   
+  def show
+    @client = Client.find(params[:id])
+  end
+  
+
   private
   def client_params
     params.require(:client).permit(:name, :contact_number, :nick_name, :gender)
