@@ -20,17 +20,15 @@
                 = f.text_field :id, class: "span6"  ,placeholder: "Enter ID ..."
                 .separator
             %hr.separator.bottom/
-
+            
             .row-fluid
               .span3
-                %strong Enter Name of the Friend
-                %p.muted Name of the Friend
+                %strong Enter mobile number
+                %p.muted Send SMS to the user with the verification code.
               .span9
-                %label{:for => "inputTitle"} Name
-                = f.text_field :friend_name, class: "span6"  ,placeholder: "Enter Friend Name ..."
-                .separator
-            %hr.separator.bottom/
-            
+                %label{:for => "inputTitle"} Contact Number
+                = f.text_field :contact_number, class: "span6"  ,placeholder: "Enter Contact Number ..."
+
             %br
       .heading-buttons
         .buttons.pull-right{:style => "margin: 0;"}
