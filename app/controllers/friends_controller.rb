@@ -55,7 +55,6 @@ class FriendsController < ApplicationController
        
     else
       # User is in the database, send request to that user
-      byebug
        @request = Request.create(:sender_id => client.id, :client_id => @receiver.id)
       if !@request.blank?
           return "request_send"

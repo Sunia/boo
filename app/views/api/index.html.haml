@@ -71,50 +71,43 @@
     %pre.code
       :escaped
   
-        RestClient.post 'localhost:3000/user_requests', {:id => "8"}
+        RestClient.post 'https://boo-app.herokuapp.com/user_requests', {:client => {:id => "8"}}
 
         Response
-        {
-            "status": "true",
-            "request_details": [
-                {
-                    "id": 1,
-                    "sender_id": 7,
-                    "rqst_status": false,
-                    "client_id": 8,
-                    "created_at": "2014-12-10T12:27:03.465Z",
-                    "updated_at": "2014-12-10T12:27:03.465Z"
-                },
-                {
-                    "id": 12,
-                    "sender_id": 9,
-                    "rqst_status": false,
-                    "client_id": 8,
-                    "created_at": "2014-12-11T05:58:13.271Z",
-                    "updated_at": "2014-12-11T05:58:13.271Z"
-                },
-                {
-                    "id": 13,
-                    "sender_id": 9,
-                    "rqst_status": false,
-                    "client_id": 8,
-                    "created_at": "2014-12-11T07:15:33.087Z",
-                    "updated_at": "2014-12-11T07:15:33.087Z"
-                }
-            ]
-        }
+
+          {
+              "status": "true",
+              "read_requests": 2,
+              "unread_requests": 0,
+              "total": 2,
+              "request_details": [
+                  {
+                      "id": 2,
+                      "sender_id": 7,
+                      "rqst_status": true,
+                      "client_id": 8,
+                      "created_at": "2014-12-10T12:27:03.465Z",
+                      "updated_at": "2014-12-11T08:20:36.639Z"
+                  },
+                  {
+                      "id": 12,
+                      "sender_id": 9,
+                      "rqst_status": true,
+                      "client_id": 8,
+                      "created_at": "2014-12-11T05:58:13.271Z",
+                      "updated_at": "2014-12-11T09:51:02.335Z"
+                  }
+              ]
+          }        
         
-        
-        
-        
-        
+  %br   
   .innerLR
     %b Accept the Request according to the ID.
     %pre.code
       :escaped
   
       
-        RestClient.post 'localhost:3000/accepted', {:request => {:id => "1"}}
+        RestClient.post 'https://boo-app.herokuapp.com/accepted', {:request => {:id => "1"}}
         
         Response
         
@@ -139,18 +132,14 @@
           }
 
 
-
-
-
-
-
+  %br
   .innerLR
     %b Reject the Request according to the ID.
     %pre.code
       :escaped
   
       
-        RestClient.post 'localhost:3000/rejected', {:request => {:id => "1"}}
+        RestClient.post 'https://boo-app.herokuapp.com/rejected', {:request => {:id => "1"}}
         
         Response
           
@@ -162,20 +151,22 @@
 
 
 
-
+  %br
   .innerLR
     %b When clicking on the requests button, make all the requests of particular client read.
     %pre.code
       :escaped
   
-        RestClient.post 'localhost:3000/read_requests', {:client_id => "1"}
+        RestClient.post 'https://boo-app.herokuapp.com/read_requests', {:client_id => "1"}
         Response
           {
               "status": "true",
-              "message": "Request has been successfuly rejected."
+              "message": "All requests has been read for this client ."
           }
           
-
+  %br
+  %br
+  %br
 
 
 

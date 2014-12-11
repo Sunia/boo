@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :requests
   resources :api
     
+  post '/read_requests' => "requests#read_requests"
   post '/accepted' => "requests#accepted"
   post '/rejected' => "requests#rejected"
   post '/user_requests' => "requests#user_requests"
