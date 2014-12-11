@@ -26,12 +26,13 @@ class FriendsController < ApplicationController
              else  
                sms_status = send_request(@client,friend_contact)
                render json: {:status => "true", :message => "Message has been sent to your friend of invitation to use this app"} if sms_status == true
+               render json: {:status => "false", :message => "Please correct the format of the contact number"} if sms_status == false
                render json: {:status => "true", :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
                render json: {:status => "false", :message => "Some error has occurred."} if sms_status == "error"
             end
         else 
             render json: {:status => "false", :message => "The client of mentioned ID is not active."}
-         end 
+        end 
               
       rescue Exception => e
         if @client.nil?
@@ -47,9 +48,10 @@ class FriendsController < ApplicationController
   
   def send_request(client,friend_contact)
     @receiver = Client.find_by_contact_number(friend_contact)
-    
+    byebug
     # Not in database
     if @receiver.blank?
+       byebug
        #send push notification
        return send_sms_friend(friend_contact)
        
@@ -66,19 +68,17 @@ class FriendsController < ApplicationController
     
   end
   
-  def add_friend
-    #@friend = client.friends.create(friend_params)
-    #client.update_attribute("friend_credit", @client.friend_credit - 1)
-    #render json: {:status => true, "message" => "Friend has succesfully added", :friend_details => JSON.parse(@friend.to_json)}
-  end
-  
   def send_sms_friend(friend_contact)
+    byebug
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-    message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
     
-    return true
+    if friend_contact[0] != "+"
+      return false
+    else
+      message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
+      return true
+    end
   end
-  
   
   private
   def friend_params
