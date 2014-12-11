@@ -46,7 +46,7 @@
     %pre.code
       :escaped
   
-        RestClient.post 'https://boo-app.herokuapp.com/friends/new_friend', {:client => {:client_id => "1", :contact_number => "9112345678"}}
+        RestClient.post 'https://boo-app.herokuapp.com/friends/new_friend', {:client => {:client_id => "1", :contact_number => "+9112345678"}}
 
         Response
           1. If contact number is already in database.

@@ -26,7 +26,7 @@ class FriendsController < ApplicationController
              else  
                sms_status = send_request(@client,friend_contact)
                render json: {:status => "true", :message => "Message has been sent to your friend of invitation to use this app"} if sms_status == true
-               render json: {:status => "false", :message => "Please correct the format of the contact number"} if sms_status == false
+               render json: {:status => "false", :message => "Contact number is not valid or its format is not correct"} if sms_status == false
                render json: {:status => "true", :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
                render json: {:status => "false", :message => "Some error has occurred."} if sms_status == "error"
             end
@@ -48,10 +48,8 @@ class FriendsController < ApplicationController
   
   def send_request(client,friend_contact)
     @receiver = Client.find_by_contact_number(friend_contact)
-    byebug
     # Not in database
     if @receiver.blank?
-       byebug
        #send push notification
        return send_sms_friend(friend_contact)
        
@@ -69,14 +67,21 @@ class FriendsController < ApplicationController
   end
   
   def send_sms_friend(friend_contact)
-    byebug
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     
     if friend_contact[0] != "+"
       return false
     else
-      message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
-      return true
+      begin
+        message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
+          if message.status == "queued"
+           return true
+          else
+           return false
+          end
+      rescue Exception => e
+       return false
+      end
     end
   end
   
