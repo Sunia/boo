@@ -13,14 +13,10 @@ Rails.application.routes.draw do
   end
   
   resources :friends
-  resources :requests do
-    member do
-      post 'accepted', :as => "accepted"
-      post 'rejected', :as => "rejected"
-    end
-  end
-  
-  
+  resources :requests
+    
+  post '/accepted' => "requests#accepted"
+  post '/rejected' => "requests#rejected"
   post '/user_requests' => "requests#user_requests"
   post 'messages/notify' => 'messages#notify'
   get '/visitors' => 'visitors#index'

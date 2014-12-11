@@ -24,11 +24,10 @@ class FriendsController < ApplicationController
              if @client.friend_credit == 0
                render json: {:status => false, :message => "You have used your all credits. Purchase friend credits to add new friends."} 
              else  
-                sms_status = send_request(@client,friend_contact)
-                byebug
-                render json: {:status => true, :message => "Message has been sent to your friend"} if sms_status == true
-                  render json: {:status => true, :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
-                  render json: {:status => false, :message => "Some error has occurred."} if sms_status == "error"
+               sms_status = send_request(@client,friend_contact)
+               render json: {:status => true, :message => "Message has been sent to your friend"} if sms_status == true
+               render json: {:status => true, :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
+               render json: {:status => false, :message => "Some error has occurred."} if sms_status == "error"
             end
         else 
             render json: {:status => false, :message => "The client of mentioned ID is not active."}
@@ -56,6 +55,7 @@ class FriendsController < ApplicationController
        
     else
       # User is in the database, send request to that user
+      byebug
        @request = Request.create(:sender_id => client.id, :client_id => @receiver.id)
       if !@request.blank?
           return "request_send"

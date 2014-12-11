@@ -1,0 +1,31 @@
+
+.heading-buttons
+  %h3
+    Accept the Request 
+    %span | according to ID
+  .clearfix
+
+.innerLR  
+  = form_for :request, :url => {:controller => "requests", :action => "accepted", :method => "post" } do |f|
+
+    .widget.widget-tabs
+      .widget-body
+        .tab-content
+          #productDescriptionTab.tab-pane.active
+            .row-fluid
+              .span3
+                %strong Enter ID
+                %p.muted ID of the Request
+              .span9
+                %label{:for => "inputTitle"} Request ID
+                = f.text_field :id, class: "span6"  ,placeholder: "Enter Request ID ..."
+                .separator
+            %hr.separator.bottom/
+
+      .heading-buttons
+        .buttons.pull-right{:style => "margin: 0;"}
+          = f.submit "Accept Request", :class => "btn btn-primary btn-icon glyphicons ok_2"
+        .clearfix
+
+%br
+%br

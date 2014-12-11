@@ -42,6 +42,5 @@
               %td= client.contact_number
               %td= client.friends.count
               
-              %td= link_to 'Show', client_path(client)
               %td= link_to 'Delete', client_path(client), method: :delete, data: { confirm: 'Are you sure?' } 
               
