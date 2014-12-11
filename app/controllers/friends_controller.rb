@@ -10,9 +10,9 @@ class FriendsController < ApplicationController
     friend_contact = params[:client][:contact_number]
     
     if params[:client][:client_id].blank?
-      render json: {:status => false, :message => "Please fill the client ID"}
+      render json: {:status => "false", :message => "Please fill the client ID"}
     elsif friend_contact.blank?
-      render json: {:status => false, :message => "Please fill the Contact Number"}
+      render json: {:status => "false", :message => "Please fill the Contact Number"}
     else
       begin
          @client = Client.find(params[:client][:client_id])
@@ -22,22 +22,22 @@ class FriendsController < ApplicationController
              
              # Check Friends Count of client
              if @client.friend_credit == 0
-               render json: {:status => false, :message => "You have used your all credits. Purchase friend credits to add new friends."} 
+               render json: {:status => "false", :message => "You have used your all credits. Purchase friend credits to add new friends."} 
              else  
                sms_status = send_request(@client,friend_contact)
-               render json: {:status => true, :message => "Message has been sent to your friend of invitation to use this app"} if sms_status == true
-               render json: {:status => true, :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
-               render json: {:status => false, :message => "Some error has occurred."} if sms_status == "error"
+               render json: {:status => "true", :message => "Message has been sent to your friend of invitation to use this app"} if sms_status == true
+               render json: {:status => "true", :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
+               render json: {:status => "false", :message => "Some error has occurred."} if sms_status == "error"
             end
         else 
-            render json: {:status => false, :message => "The client of mentioned ID is not active."}
+            render json: {:status => "false", :message => "The client of mentioned ID is not active."}
          end 
               
       rescue Exception => e
         if @client.nil?
-          render json: {:status => false, :message => "No client of this ID"}
+          render json: {:status => "false", :message => "No client of this ID"}
          else
-          render json: {:status => false, :message => "Something wrong has happened"}
+          render json: {:status => "false", :message => "Something wrong has happened"}
          end
       end
       
