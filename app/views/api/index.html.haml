@@ -1,0 +1,68 @@
+#content
+  .separator.bottom
+  .heading-buttons
+    %h3
+      All API's
+    .clearfix
+  .separator.bottom
+  
+  .innerLR
+    %b Send SMS
+    %pre
+      
+      RestClient.post 'https://boo-app.herokuapp.com/messages/notify', {:client => {:contact_number => "+918732896323"}}
+      
+      Response
+      
+      {"status":true,"message":"Message has been sent sucessfully","code_sent":"03832","client_id":1}
+
+  %br
+  .innerLR
+    %b Update the User information
+    %pre.code
+      :escaped
+  
+        RestClient.post 'https://boo-app.herokuapp.com/clients/update_info', {:client => {:id => "1",:name => "Simran", :nick_name =>"simi", :gender => "female"}}
+  
+        Response
+        
+          {
+            "status": "true",
+            "client_details": {
+              "id": 1,
+              "name": "Simran",
+              "nick_name": "simi",
+              "gender": "Female",
+              "status": true,
+              "contact_number": "+918732896323",
+              "created_at": "2014-12-09T09:57:47.377Z",
+              "updated_at": "2014-12-11T07:00:14.728Z",
+              "friend_credit": 1
+           }
+          }
+  %br
+  .innerLR
+    %b Add new friend
+    %pre.code
+      :escaped
+  
+        RestClient.post 'https://boo-app.herokuapp.com/friends/new_friend', {:client => {:client_id => "1", :contact_number => "9112345678"}}
+
+        Response
+          1. If contact number is already in database.
+          {"status":true,"message":"Request has succesfully sent to the user"}
+          
+          2. If contact number is not in the database. then it will send message to the client.
+          {"status":true,"message":"Message has been sent to your friend of invitation to use this app."}
+          
+          3. If friend credit is 0. 
+          {:status => false, :message => "You have used your all credits. Purchase friend credits to add new friends."} 
+          
+          4. If Client Id is not active.
+          {:status => false, :message => "The client of mentioned ID is not active."}
+                    
+          5. If client Id is not present.
+          {:status => false, :message => "No client of this ID"}
+
+
+

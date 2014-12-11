@@ -25,7 +25,7 @@ class FriendsController < ApplicationController
                render json: {:status => false, :message => "You have used your all credits. Purchase friend credits to add new friends."} 
              else  
                sms_status = send_request(@client,friend_contact)
-               render json: {:status => true, :message => "Message has been sent to your friend"} if sms_status == true
+               render json: {:status => true, :message => "Message has been sent to your friend of invitation to use this app"} if sms_status == true
                render json: {:status => true, :message => "Request has succesfully sent to the user"} if sms_status == "request_send"
                render json: {:status => false, :message => "Some error has occurred."} if sms_status == "error"
             end
@@ -75,7 +75,7 @@ class FriendsController < ApplicationController
   
   def send_sms_friend(friend_contact)
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-    message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Sunia kalra here..Your friend has invited you to download the boo app"
+    message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
     
     return true
   end

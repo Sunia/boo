@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   
   resources :friends
   resources :requests
+  resources :api
     
   post '/accepted' => "requests#accepted"
   post '/rejected' => "requests#rejected"
