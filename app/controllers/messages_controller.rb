@@ -2,10 +2,6 @@ class MessagesController < ApplicationController
   
   skip_before_action :verify_authenticity_token
   
-  def new
-    
-  end
-
   def notify
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     random_code = rand.to_s[2..6]
@@ -27,7 +23,4 @@ class MessagesController < ApplicationController
     
   end
 
-# with parameters 
-#curl --basic --header "Content-Type:application/json" --header "Accept:application/json" http://localhost:3000/messages/notify -X POST -d ' {"client": {"contact_number": "+918872853171"}}'
-#RestClient.post 'http://localhost:3000/messages/notify', {:client => {:contact_number => "+918872853171"}}
 end

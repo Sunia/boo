@@ -13,7 +13,6 @@ class ClientsController < ApplicationController
   end
   
   # To update the clients information.
-  
   def update_info
     if params["client"]["id"].blank?
       render json: {:status => "false", :id => "ID should not be blank"}
@@ -29,6 +28,7 @@ class ClientsController < ApplicationController
     end
   end
   
+  # For deleting the record.
   def destroy
     begin
       @client = Client.find(params[:id])
@@ -39,11 +39,11 @@ class ClientsController < ApplicationController
       redirect_to clients_path
   end
   
+  # To show the record of the client.
   def show
     @client = Client.find(params[:id])
   end
   
-
   private
   def client_params
     params.require(:client).permit(:name, :contact_number, :nick_name, :gender)

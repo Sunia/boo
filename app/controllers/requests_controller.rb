@@ -12,9 +12,7 @@ class RequestsController < ApplicationController
         
         read = @requests.where(:rqst_status => true).count
         unread = @requests.where(:rqst_status => false).count
-        
         total = read + unread 
-        
         render json: {:status => "true", :read_requests => read, :unread_requests => unread, :total => total, :request_details => JSON.parse(@requests.to_json)}
          
        rescue Exception => e
@@ -27,6 +25,8 @@ class RequestsController < ApplicationController
       
     end
   end
+
+ # Acceptance of the Record.
 
   def accepted
     if params[:request][:id].blank?
@@ -54,6 +54,8 @@ class RequestsController < ApplicationController
     end
   end
   
+  # Rejection of the Record. 
+  
   def rejected
     if params[:request][:id].blank?
       render json: {:status => "false", :message => "Please provide the request_id"}
@@ -73,13 +75,14 @@ class RequestsController < ApplicationController
     end
   end
   
+  # To read all the requests.
   def read_requests
     if params[:client_id].blank?
       render json: {:status => "false", :message => "Please provide the client_id"}
     else
       begin
         @client = Client.find(params[:client_id])
-         @client.requests.each do |request|
+        @client.requests.each do |request|
            request.update_attribute("rqst_status" , true)
         end
          @status = @client.requests.where(:rqst_status => false)
@@ -88,6 +91,7 @@ class RequestsController < ApplicationController
          else
           render json: {:status => "false", :message => "Some requests are pending to read"}  
          end
+         
       rescue Exception => e
          if @client.nil?
            render json: {:status => "false", :message => "No client of this ID."}
@@ -97,9 +101,5 @@ class RequestsController < ApplicationController
       end
     end
   end
-  
-  
-  
-
   
 end

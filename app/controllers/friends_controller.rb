@@ -1,10 +1,8 @@
 class FriendsController < ApplicationController
+  
   skip_before_action :verify_authenticity_token
   
-  def new
-    
-  end
-  
+  # For adding the new friend. 
   def new_friend
     
     friend_contact = params[:client][:contact_number]
@@ -18,7 +16,7 @@ class FriendsController < ApplicationController
          @client = Client.find(params[:client][:client_id])
          
           # Check Status of the client Details
-          if @client.status == true 
+          if @client.status 
              
              # Check Friends Count of client
              if @client.friend_credit == 0
@@ -45,47 +43,44 @@ class FriendsController < ApplicationController
     end
   end
   
+  private
   
   def send_request(client,friend_contact)
     @receiver = Client.find_by_contact_number(friend_contact)
+    
     # Not in database
     if @receiver.blank?
-       #send push notification
-       return send_sms_friend(friend_contact)
-       
+       #send push notification, call to method.
+       send_sms_friend(friend_contact)
     else
       # User is in the database, send request to that user
-       @request = Request.create(:sender_id => client.id, :client_id => @receiver.id)
+      @request = Request.create(:sender_id => client.id, :client_id => @receiver.id)
       if !@request.blank?
-          return "request_send"
+        "request_send"
       else
-        return "error"
-         
-      end 
+        "error"
+      end
+       
     end
-    
   end
   
+  # Friend is not in the database. So send the invitation.
+   
   def send_sms_friend(friend_contact)
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     
     if friend_contact[0] != "+"
-      return false
+      false
     else
       begin
         message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
-          if message.status == "queued"
-           return true
-          else
-           return false
-          end
+        message.status == "queued" ? true : false
       rescue Exception => e
-       return false
+       false
       end
     end
   end
-  
-  private
+
   def friend_params
     params.require(:client).permit(:friend_name, :contact_number)
   end
