@@ -9,12 +9,16 @@ class MessagesController < ApplicationController
       render json: {:status => "false", :body => "Contact number is blank"}
     else
       begin
-         msg = "Hello Its app verification !!!! Please verify the code #{random_code} to get the access. " 
-         message = Message.send_sms(contact, msg)
+         msg = "Hello Its app verification !!!! Please verify the code #{random_code} to get the access."
+         sms_client = SendSms.new
+         message = sms_client.send_sms(contact, msg)
+
          if message.status == "queued"
            @client = Client.find_or_create_by(:contact_number => contact)
            @client.update_attribute("code" , random_code)
            render json: {:status => "true", :message => "Message has been sent sucessfully", :code_sent => random_code, :client_id => @client.id } 
+         else
+           render json: {:status => false, :message => "Message did not send due to some error"}
          end
       rescue Exception => e
          render json: {:status => "false", :body => "Something went wrong"}

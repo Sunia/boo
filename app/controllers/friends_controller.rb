@@ -61,7 +61,8 @@ class FriendsController < ApplicationController
     else
       begin
         msg = "Hello admin here..Your friend has invited you to download the boo app"
-        message = Message.send_sms(friend_contact, msg)
+        sms_client = SendSms.new
+        message = sms_client.send_sms(contact, msg)
         message.status == "queued"
       rescue Exception => e
        false
