@@ -1,0 +1,41 @@
+.heading-buttons
+  %br
+  %br
+  %h3
+    Verify the Code  
+    %span | according to ID
+  .clearfix
+
+.innerLR
+  = form_for :client, :url => {:controller => "messages", :action => "verify", :method => "post" } do |f|
+
+    .widget.widget-tabs
+      .widget-body
+        .tab-content
+          #productDescriptionTab.tab-pane.active
+
+            .row-fluid
+              .span3
+                %strong Enter Client ID
+                %p.muted Enter the client ID.
+              .span9
+                %label{:for => "inputTitle"} Client ID
+                = f.text_field :client_id, class: "span6"  ,placeholder: "Enter Client ID ..."
+                .separator
+            %hr.separator.bottom/
+
+            .row-fluid
+              .span3
+                %strong Enter verification code
+                %p.muted Please enter the code that has sent you.
+              .span9
+                %label{:for => "inputTitle"} Code
+                = f.text_field :code, class: "span6"  ,placeholder: "Enter Verification Code ..."
+                .separator
+            %hr.separator.bottom/
+
+      .heading-buttons
+        .buttons.pull-right{:style => "margin: 0;"}
+          = f.submit "Verify", :class => "btn btn-primary btn-icon glyphicons ok_2"
+%br
+%br

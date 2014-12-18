@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :friends
   resources :requests
   resources :api
-    
+  
+  post '/verify' => "messages#verify"
   post '/read_requests' => "requests#read_requests"
   post '/accepted' => "requests#accepted"
   post '/rejected' => "requests#rejected"

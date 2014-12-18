@@ -19,15 +19,22 @@ class ClientsController < ApplicationController
     else
      begin
        @client  = Client.find(params["client"]["id"])
-       @client.update_attributes(client_params)
-       @client.update_attributes(:status => true)
-       render json: {:status => "true", :client_details => JSON.parse(@client.to_json)}
+       if !@client.status
+         render json: {:status => false, :message => "Status is not active. Please verify the code first."}
+       else
+         @client.update_attributes(client_params)
+         render json: {:status => "true", :client_details => JSON.parse(@client.to_json)}
+       end
      rescue Exception => e
-       render json: {:status => "There is some error"}
+       if @client.nil?
+         render json: {:status => false, :message => "There is no any client regarding this id"}
+       else
+        render json: {:status => "There is some error"}
+       end
      end
     end
   end
-  
+
   # For deleting the record.
   def destroy
     begin
@@ -38,15 +45,16 @@ class ClientsController < ApplicationController
     end
       redirect_to clients_path
   end
-  
+
   # To show the record of the client.
   def show
     @client = Client.find(params[:id])
   end
-  
+
   private
+  
   def client_params
     params.require(:client).permit(:name, :contact_number, :nick_name, :gender)
   end
-  
+
 end
