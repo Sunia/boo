@@ -1,18 +1,18 @@
 class MessagesController < ApplicationController
-  
+
   skip_before_action :verify_authenticity_token
-  
+
   def notify
     random_code = rand.to_s[2..6]
-
-    if params["client"]["contact_number"].blank?
+    contact = params["client"]["contact_number"]
+    if contact.blank?
       render json: {:status => "false", :body => "Contact number is blank"}
     else
       begin
-         client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-         message = client.messages.create from: '+18023326627', to: params["client"]["contact_number"], body: "Hello Its app verification !!!! Please verify the code #{random_code} to get the access. "
+         msg = "Hello Its app verification !!!! Please verify the code #{random_code} to get the access. " 
+         message = Message.send_sms(contact, msg)
          if message.status == "queued"
-           @client = Client.find_or_create_by(:contact_number => params["client"]["contact_number"])
+           @client = Client.find_or_create_by(:contact_number => contact)
            @client.update_attribute("code" , random_code)
            render json: {:status => "true", :message => "Message has been sent sucessfully", :code_sent => random_code, :client_id => @client.id } 
          end

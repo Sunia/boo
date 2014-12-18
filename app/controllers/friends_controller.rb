@@ -55,26 +55,19 @@ class FriendsController < ApplicationController
     else
       # User is in the database, send request to that user
       @request = Request.create(:sender_id => client.id, :client_id => @receiver.id)
-      if !@request.blank?
-        "request_send"
-      else
-        "error"
-      end
-       
+      @request.blank? ? "error" : "request_send" 
     end
   end
-  
+
   # Friend is not in the database. So send the invitation.
-   
   def send_sms_friend(friend_contact)
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-    
     if friend_contact[0] != "+"
       false
     else
       begin
         message = client.messages.create from: '+18023326627', to: friend_contact, body: "Hello Boo app admin here..Your friend has invited you to download the boo app"
-        message.status == "queued" ? true : false
+        message.status == "queued"
       rescue Exception => e
        false
       end
